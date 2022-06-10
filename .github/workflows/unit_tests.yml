@@ -1,0 +1,47 @@
+name: Unit tests
+
+on:
+  workflow_call:
+    inputs:
+      testing:
+        required: true
+        type: boolean
+
+jobs:
+  unit_tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      - name: Update pip
+        run: python -m pip install --upgrade pip
+      - name: Install wheel
+        run: pip install --upgrade wheel
+      - name: Install requirements
+        run: pip install -r ./requirements.txt --upgrade
+      - name: Install development requirements
+        run: pip install -r ./requirements-dev.txt --upgrade
+      - name: Run tests
+        run: coverage run -m pytest -x ./tests
+      - name: Generate report
+        if: inputs.testing
+        run: |
+          coverage xml
+          coverage report
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        if: inputs.testing
+        with:
+          env_vars: ${{ matrix.os }},${{ matrix.python-version }}
