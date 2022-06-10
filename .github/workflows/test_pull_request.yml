@@ -1,0 +1,16 @@
+name: Test package
+
+on:
+  pull_request:
+
+jobs:
+  code_style:
+    name: Platform independent tests
+    needs: wait_for_previous_workflows_to_finish
+    uses: './.github/workflows/code_style.yml'
+  unit_tests:
+    name: Platform dependent tests
+    needs: code_style
+    uses: './.github/workflows/unit_tests.yml'
+    with:
+      testing: true

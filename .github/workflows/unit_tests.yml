@@ -41,7 +41,19 @@ jobs:
           coverage xml
           coverage report
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         if: inputs.testing
         with:
           env_vars: ${{ matrix.os }},${{ matrix.python-version }}
+      - name: Install build
+        run: pip install --upgrade build
+      - name: Build package
+        run: python -m build
+      - name: Install built package
+        run: pip install --force-reinstall ./dist/*.whl
+      - name: Remove source
+        run: |
+          rm -rf ./dist
+          rm -rf ./src
+      - name: Run tests for installed package
+        run: python -m pytest -x ./tests

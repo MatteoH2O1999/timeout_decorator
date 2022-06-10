@@ -4,6 +4,8 @@ on:
   push:
     tags-ignore:
       - v[0-9]+.[0-9]+.[0-9]+
+    branches:
+      - 'main'
 
 jobs:
   check_if_code_changed:
