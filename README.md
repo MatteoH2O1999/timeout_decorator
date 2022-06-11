@@ -5,3 +5,4 @@
 ![PyPI - License](https://img.shields.io/pypi/l/timeout-function-decorator)
 [![Test package](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/test.yml/badge.svg)](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/test.yml)
 [![Release package](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/release.yml/badge.svg)](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/release.yml)
+[![codecov](https://codecov.io/gh/MatteoH2O1999/timeout_decorator/branch/main/graph/badge.svg?token=MV9PYET185)](https://codecov.io/gh/MatteoH2O1999/timeout_decorator)
