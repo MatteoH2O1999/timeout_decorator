@@ -58,3 +58,29 @@ async def timeout_triggered_custom_exception():
 async def test_timeout_triggered_custom_exception():
     with pytest.raises(CustomException):
         await timeout_triggered_custom_exception()
+
+
+@timeout()
+async def timeout_return_value(value):
+    await asyncio.sleep(2)
+    return value
+
+
+@pytest.mark.asyncio
+async def test_timeout_return_value():
+    value = await timeout_return_value(2)
+    assert value == 2
+
+
+@timeout(1)
+async def timeout_triggered_return_value(value):
+    await asyncio.sleep(2)
+    return value
+
+
+@pytest.mark.asyncio
+async def test_timeout_triggered_return_value():
+    value = None
+    with pytest.raises(TimeoutError):
+        value = await timeout_triggered_return_value(2)
+    assert value is None

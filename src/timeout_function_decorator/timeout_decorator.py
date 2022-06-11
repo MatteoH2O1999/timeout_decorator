@@ -22,7 +22,10 @@ def timeout(
         @wraps(func)
         async def async_wrapper(*args, **kwargs):
             try:
-                await asyncio.wait_for(func(*args, **kwargs), timeout=timeout_duration)
+                value = await asyncio.wait_for(
+                    func(*args, **kwargs), timeout=timeout_duration
+                )
+                return value
             except asyncio.TimeoutError:
                 raise exception_to_raise()
 
@@ -50,4 +53,5 @@ class _SyncWrapper(Thread):
             self.timed_out = True
 
     async def run_func(self):
-        await asyncio.get_event_loop().run_in_executor(None, self.func)
+        value = await asyncio.get_event_loop().run_in_executor(None, self.func)
+        return value

@@ -53,3 +53,26 @@ def timeout_triggered_custom_exception():
 def test_timeout_triggered_custom_exception():
     with pytest.raises(CustomException):
         timeout_triggered_custom_exception()
+
+
+@timeout()
+def timeout_return_value(value):
+    time.sleep(2)
+    return value
+
+
+def test_timeout_return_value():
+    assert timeout_return_value(2) == 2
+
+
+@timeout(1)
+def timeout_triggered_return_value(value):
+    time.sleep(2)
+    return value
+
+
+def test_timeout_triggered_return_value():
+    value = None
+    with pytest.raises(TimeoutError):
+        value = timeout_triggered_return_value(2)
+    assert value is None
