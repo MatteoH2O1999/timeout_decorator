@@ -1,3 +1,7 @@
+"""
+Module containing "timeout" decorator for sync and async callables.
+"""
+
 import asyncio
 
 from inspect import iscoroutinefunction
@@ -9,6 +13,20 @@ from typing import Type
 def timeout(
     timeout_duration: float = None, exception_to_raise: Type[Exception] = TimeoutError
 ):
+    """
+    Wraps a function to raise the specified exception if execution time
+    is greater than the specified timeout.
+
+    Works with both synchronous and asynchronous callables, but with synchronous ones will introduce
+    some overhead due to the backend use of threads and asyncio.
+
+        :param float timeout_duration: Timeout duration in seconds. If none callable won't time out.
+        :param Type[Exception] exception_to_raise: Exception to raise when the callable times out.
+            Defaults to TimeoutError.
+        :return: The decorated function.
+        :rtype: callable
+    """
+
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
