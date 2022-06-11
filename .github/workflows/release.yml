@@ -7,10 +7,10 @@ on:
 
 jobs:
   code_style:
-    name: Platform independent tests
+    name: Code style
     uses: './.github/workflows/code_style.yml'
   unit_tests:
-    name: Platform dependent tests
+    name: Unit tests
     needs: code_style
     uses: './.github/workflows/unit_tests.yml'
     with:

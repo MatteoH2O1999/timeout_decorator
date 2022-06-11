@@ -56,4 +56,4 @@ jobs:
           rm -rf ./dist
           rm -rf ./src
       - name: Run tests for installed package
-        run: python -m pytest -x ./tests
+        run: pytest -x ./tests

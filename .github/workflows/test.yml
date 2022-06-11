@@ -36,11 +36,11 @@ jobs:
           timeout: 4800000
           delay: 60000
   code_style:
-    name: Platform independent tests
+    name: Code style
     needs: wait_for_previous_workflows_to_finish
     uses: './.github/workflows/code_style.yml'
   unit_tests:
-    name: Platform dependent tests
+    name: Unit tests
     needs: code_style
     uses: './.github/workflows/unit_tests.yml'
     with:
