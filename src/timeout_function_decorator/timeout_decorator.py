@@ -1,4 +1,20 @@
+from functools import wraps
+
+
 def timeout(
-    func, timeout_duration: float = None, exception_to_raise: Exception = TimeoutError
+    _func=None,
+    *,
+    timeout_duration: float = None,
+    exception_to_raise: Exception = TimeoutError
 ):
-    return func
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    if _func is None:
+        return decorator
+    else:
+        return decorator(_func)
