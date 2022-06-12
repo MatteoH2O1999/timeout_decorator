@@ -145,7 +145,7 @@ They can be passed as positional or keyword arguments.
 
 The wrapper uses asyncio and threads to keep track of timeouts.
 This adds a non-trivial overhead on the wrapped functions, in particular on the synchronous ones as they need a thread to be
-created, started and joined.
+created.
 
 As such, common use cases would include test suites where control on what happens when they time out is important, as with
 packages like `pytest-timeout` you can not have tests fail with a specified exception.
@@ -154,3 +154,51 @@ Use cases in production code, on the other hand, would be limited to long functi
 linear with the number of calls but independent of the size of the function or its execution time.
 
 A notebook outlining the impact of the overhead on sync and async functions can be found [here](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/notebooks/overhead.ipynb).
+
+Plots from the notebook are presented below for a quick performance evaluation.
+
+## Performance evaluation
+
+### General performance
+
+![general_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/general.png?raw=true)
+
+### Sync performance
+
+![sync_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/sync.png?raw=true)
+
+#### Quick function performance
+
+![quick_sync_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/sync_quick.png?raw=true)
+
+#### Medium function performance
+
+![medium_sync_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/sync_medium.png?raw=true)
+
+#### Long function performance
+
+![long_sync_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/sync_long.png?raw=true)
+
+#### Huge function performance
+
+![huge_sync_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/sync_huge.png?raw=true)
+
+### Async performance
+
+![async_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/async.png?raw=true)
+
+#### Quick function performance
+
+![quick_async_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/async_quick.png?raw=true)
+
+#### Medium function performance
+
+![medium_async_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/async_medium.png?raw=true)
+
+#### Long function performance
+
+![long_async_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/async_long.png?raw=true)
+
+#### Huge function performance
+
+![huge_async_performance](https://github.com/MatteoH2O1999/timeout_decorator/blob/main/performance/async_huge.png?raw=true)
