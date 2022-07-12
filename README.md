@@ -1,12 +1,15 @@
-# Timeout function decorator
+<h1 align="center">Timeout function decorator</h1>
 
-[![PyPI version](https://badge.fury.io/py/timeout-function-decorator.svg)](https://badge.fury.io/py/timeout-function-decorator)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/timeout-function-decorator)
-![PyPI - License](https://img.shields.io/pypi/l/timeout-function-decorator)
-[![Test package](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/test.yml/badge.svg)](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/test.yml)
-[![Release package](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/release.yml/badge.svg)](https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/release.yml)
-[![codecov](https://codecov.io/gh/MatteoH2O1999/timeout_decorator/branch/main/graph/badge.svg?token=MV9PYET185)](https://codecov.io/gh/MatteoH2O1999/timeout_decorator)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+<p align="center">
+<a href="https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/test.yml"><img src="https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/test.yml/badge.svg" alt="Test package"></a>
+<a href="https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/release.yml"><img src="https://github.com/MatteoH2O1999/timeout_decorator/actions/workflows/release.yml/badge.svg" alt="Release package"></a>
+<a href="https://github.com/MatteoH2O1999/timeout_decorator/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/timeout-function-decorator" alt="PyPI - License"></a>
+<a href="https://codecov.io/gh/MatteoH2O1999/timeout_decorator"><img src="https://codecov.io/gh/MatteoH2O1999/timeout_decorator/branch/main/graph/badge.svg?token=MV9PYET185" alt="codecov"></a>
+<a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+<a href="https://badge.fury.io/py/timeout-function-decorator"><img src="https://badge.fury.io/py/timeout-function-decorator.svg" alt="PyPI version"></a>
+<a href="https://badge.fury.io/py/timeout-function-decorator"><img src="https://img.shields.io/pypi/pyversions/timeout-function-decorator" alt="PyPI - Python Version"></a>
+<a href="https://pepy.tech/project/timeout-function-decorator"><img src="https://pepy.tech/badge/timeout-function-decorator" alt="Downloads"></a>
+</p>
 
 Timeout decorator for synchronous and asynchronous functions.
 
