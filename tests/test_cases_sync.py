@@ -76,3 +76,16 @@ def test_timeout_triggered_return_value():
     with pytest.raises(TimeoutError):
         value = timeout_triggered_return_value(2)
     assert value is None
+
+
+@timeout(1)
+def timeout_triggered_infinite_function(value):
+    while True:
+        time.sleep(1)
+
+
+def test_timeout_triggered_infinite_function():
+    value = None
+    with pytest.raises(TimeoutError):
+        value = timeout_triggered_infinite_function(2)
+    assert value is None

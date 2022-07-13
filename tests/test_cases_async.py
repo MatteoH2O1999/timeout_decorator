@@ -84,3 +84,18 @@ async def test_timeout_triggered_return_value():
     with pytest.raises(TimeoutError):
         value = await timeout_triggered_return_value(2)
     assert value is None
+
+
+@timeout(1)
+async def timeout_triggered_infinite_function(value):
+    while True:
+        await asyncio.sleep(1)
+    return value
+
+
+@pytest.mark.asyncio
+async def test_timeout_triggered_infinite_function():
+    value = None
+    with pytest.raises(TimeoutError):
+        value = await timeout_triggered_infinite_function(2)
+    assert value is None
