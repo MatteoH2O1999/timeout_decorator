@@ -4,10 +4,12 @@ Module containing "timeout" decorator for sync and async callables.
 
 import asyncio
 
+from concurrent import futures
 from inspect import iscoroutinefunction
-from functools import partial, wraps
+from functools import wraps
 from threading import Thread
 from typing import Type
+from sys import version_info as py_ver
 
 
 def timeout(
@@ -30,12 +32,19 @@ def timeout(
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            thread = _SyncWrapper(func, timeout_duration, *args, **kwargs)
+            async def async_func():
+                return func(*args, **kwargs)
+
+            thread = _LoopWrapper()
             thread.start()
-            thread.join()
-            if thread.timed_out:
+            future = asyncio.run_coroutine_threadsafe(async_func(), thread.loop)
+            try:
+                result = future.result(timeout=timeout_duration)
+            except futures.TimeoutError:
+                thread.stop_loop()
                 raise exception_to_raise()
-            return thread.result
+            thread.stop_loop()
+            return result
 
         @wraps(func)
         async def async_wrapper(*args, **kwargs):
@@ -54,22 +63,20 @@ def timeout(
     return decorator
 
 
-class _SyncWrapper(Thread):
-    def __init__(self, func, timeout_duration, *args, **kwargs):
-        super().__init__()
-        self.result = None
-        self.func = partial(func, *args, **kwargs)
-        self.timeout_duration = timeout_duration
-        self.timed_out = False
+class _LoopWrapper(Thread):
+    def __init__(self):
+        super().__init__(daemon=True)
+        self.loop = asyncio.new_event_loop()
 
     def run(self) -> None:
-        try:
-            self.result = asyncio.new_event_loop().run_until_complete(
-                asyncio.wait_for(self.run_func(), self.timeout_duration)
-            )
-        except asyncio.TimeoutError:
-            self.timed_out = True
+        self.loop.run_forever()
+        self.loop.call_soon_threadsafe(self.loop.close)
 
-    async def run_func(self):
-        value = await asyncio.get_event_loop().run_in_executor(None, self.func)
-        return value
+    def stop_loop(self):
+        if py_ver.major == 3 and py_ver.minor >= 7:
+            caller = asyncio
+        else:
+            caller = asyncio.Task
+        for task in caller.all_tasks(self.loop):
+            task.cancel()
+        self.loop.call_soon_threadsafe(self.loop.stop)
