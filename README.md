@@ -135,6 +135,8 @@ def i_still_time_out(value):
     return value
 ```
 
+> :warning: **Warning:** When a function times out, an exception is raised but cancellation is not guaranteed. This decorator only notifies the user when enough time has passed since a function call. Handling of the situation and ensuring cancellation is up to the user.
+
 ## Signature
 
 In general, the decorator accepts two parameters:
