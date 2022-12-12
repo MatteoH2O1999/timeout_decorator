@@ -9,7 +9,6 @@ from inspect import iscoroutinefunction
 from functools import wraps
 from threading import Thread
 from typing import Type
-from sys import version_info as py_ver
 
 
 def timeout(
@@ -73,10 +72,6 @@ class _LoopWrapper(Thread):
         self.loop.call_soon_threadsafe(self.loop.close)
 
     def stop_loop(self):
-        if py_ver.major == 3 and py_ver.minor >= 7:
-            caller = asyncio
-        else:
-            caller = asyncio.Task
-        for task in caller.all_tasks(self.loop):
+        for task in asyncio.all_tasks(self.loop):
             task.cancel()
         self.loop.call_soon_threadsafe(self.loop.stop)
