@@ -22,10 +22,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Python 3.7
+      - name: Setup Python 3.8
         uses: MatteoH2O1999/setup-python@v3
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           cache: 'pip'
           allow-build: info
           cache-build: true
