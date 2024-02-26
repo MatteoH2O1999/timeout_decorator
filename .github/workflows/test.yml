@@ -20,3 +20,4 @@ jobs:
     uses: './.github/workflows/unit_tests.yml'
     with:
       testing: true
+    secrets: inherit

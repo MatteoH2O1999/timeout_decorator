@@ -45,7 +45,7 @@ jobs:
         uses: codecov/codecov-action@v4
         if: inputs.testing
         with:
-          env_vars: ${{ matrix.os }},${{ matrix.python-version }}
+          token: ${{ secrets.CODECOV_TOKEN }}
   package_unit_tests:
     name: Test package
     needs: src_unit_tests
