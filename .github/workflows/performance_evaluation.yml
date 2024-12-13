@@ -21,7 +21,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Setup Python ${{ inputs.python-version }}
-        uses: MatteoH2O1999/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v5
         with:
           python-version: ${{ inputs.python-version }}
           allow-build: info
